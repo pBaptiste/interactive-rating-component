@@ -1,0 +1,100 @@
+---
+    import { Image } from "astro:assets";
+    import starIcon from '../images/icon-star.svg';
+    import Result from "./Result.astro";
+
+    const ratings = ['1', '2', '3', '4', '5'];
+---
+
+<form 
+id="ratingForm"
+class="w-[327px] md:w-[412px] h-[360px] md:h-[416px] rounded-[15px] md:rounded-[30px] bg-black-gradient p-6 md:p-8">
+    <div class="w-[40px] md:w-12 h-[40px] md:h-12 rounded-full bg-dark-blue flex items-center justify-center mb-4 md:mb-[30px]">
+        <Image src={starIcon} alt="Star Icon"/>
+    </div>
+
+    <div>
+        <h2 class="text-white text-2xl md:text-[1.75rem] font-bold mb-[10px] md:mb-[7px]">How did we do?</h2>
+        <p class="text-light-gray text-sm md:text-[0.938rem] font-normal leading-[1.375rem] md:leading-6 mb-6">Please let us know how we did with your support request. All feedback is appreciated to help us improve our offering!</p>
+    </div>
+
+    <div class="flex justify-between mb-6 md:mb-8">
+        {ratings.map((item) => (
+            <button 
+            id={item} 
+            type="button"
+            class="w-[42px] md:w-[51px] h-[42px] md:h-[51px] rounded-full bg-dark-blue hover:bg-orange text-medium-gray hover:text-white transition-colors duration-300 text-sm md:text-base font-bold leading-[1.5rem] tracking-[0.175px] rating">
+            {item}
+            </button>
+        ))}
+    </div>
+
+    <button 
+    type="submit"
+    disabled="true" 
+    id="submit"
+    class="w-full h-[45px] rounded-[22.5px] bg-orange hover:bg-white text-white hover:text-orange transition-colors duration-500 text-sm md:text-[.938rem] font-bold tracking-[1.867px] md:tracking-[0.2px] uppercase disabled">
+    Submit
+    </button>
+</form>
+
+<Result id='thanks' style="hidden"/>
+
+<style>
+    .hidden {
+        display: none;
+    }
+
+    .visible {
+        display: block;
+    }
+
+    .active {
+        color: white;
+        background-color: #7C8798;
+    }
+
+    .disabled {
+        cursor: not-allowed;
+    }
+
+    .disabled:hover {
+        background-color: rgba(252, 252, 252, .1);
+        color: white;
+    }
+</style>
+
+<script>
+    const ratingBtns = document.querySelectorAll('.rating');
+    const submitBtn = document.querySelector('#submit');
+    const ratingForm = document.querySelector('#ratingForm')
+    const thanksComponent = document.querySelector('#thanks');
+    const result = document.querySelector('#result')
+    let submittedRating = null;
+
+    ratingBtns.forEach(btn => {
+
+        btn.addEventListener('click', () => {
+
+            ratingBtns.forEach(btn => {btn.classList.remove('active')})
+
+            btn.classList.add('active')
+
+            submittedRating = btn.textContent
+
+            submitBtn.removeAttribute('disabled')
+            submitBtn.classList.remove('disabled')
+        })
+    })
+
+    submitBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        thanksComponent.classList.remove('hidden')
+
+        ratingForm.classList.add('hidden')
+
+        result.textContent = `You selected ${submittedRating} out of 5`
+
+    })
+</script>
