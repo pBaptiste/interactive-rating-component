@@ -4,9 +4,9 @@ import thankYouImg from '../images/illustration-thank-you.svg'
 const { id, style } = Astro.props;
 ---
 
-<article id={id} class={`${style} w-[327px] md:w-[412px] h-[360px] md:h-[416px] rounded-[15px] md:rounded-[30px] bg-black-gradient flex flex-col items-center gap-8 pt-[34px] pb-[37px] md:py-[45px] px-6 md:pr-10`}>
+<article id={id} class={`${style} max-w-[327px] md:max-w-[412px] min-h-[360px] md:min-h-[416px] rounded-[15px] md:rounded-[30px] bg-black-gradient flex flex-col items-center gap-8 pt-[34px] pb-[37px] md:py-[45px] px-6 md:pr-10`}>
     <div class="w-[144px] md:w-[162px] h-[96px] md:h-[108px]">
-        <Image src={thankYouImg} alt="Thank You Illustration" class="object-cover w-full h-full"/>
+        <Image src={thankYouImg} alt="" class="object-cover w-full h-full"/>
     </div>
 
     <p id="result" class="px-3 py-[5px] bg-dark-blue rounded-[22.5px] text-orange text-sm md:text-[.938rem] font-normal leading-[1.375rem] md:leading-[1.5rem]"></p>
